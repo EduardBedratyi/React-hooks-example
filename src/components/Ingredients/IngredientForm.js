@@ -6,7 +6,8 @@ import './IngredientForm.css';
 const IngredientForm = React.memo((props) => {
   //useState returns: 1 element is a current state snapshot
   //2 element is a function that allows to update current state
-  const [inputState, setInputState] = useState({ title: '', amount: '' });
+  const [enteredTitle, setEnteredTitle] = useState('');
+  const [enteredAmount, setEnteredAmount] = useState('');
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -22,14 +23,10 @@ const IngredientForm = React.memo((props) => {
             <input
               type='text'
               id='title'
-              value={inputState.title}
+              value={enteredTitle}
               /*to guarantee that the current state is the latest state that was committed instead value it should be pass a function*/
               onChange={(event) => {
-                const newTitle = event.target.value;
-                setInputState((prevInputState) => ({
-                  title: newTitle,
-                  amount: prevInputState.amount,
-                }));
+                setEnteredTitle(event.target.value);
               }}
             />
           </div>
@@ -38,14 +35,10 @@ const IngredientForm = React.memo((props) => {
             <input
               type='number'
               id='amount'
-              value={inputState.amount}
+              value={enteredAmount}
               /*to guarantee that the current state is the latest state that was committed instead value it should be pass a function*/
               onChange={(event) => {
-                const newAmount = event.target.value;
-                setInputState((prevInputState) => ({
-                  amount: newAmount,
-                  title: prevInputState.title,
-                }));
+                setEnteredAmount(event.target.value);
               }}
             />
           </div>
