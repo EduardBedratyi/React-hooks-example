@@ -23,7 +23,8 @@ const Ingredients = () => {
         }
         setUserIngredients(loadedIngredients);
       });
-  });
+    //with [] it runs only once after the first render
+  }, []);
 
   const addIngredientHandler = (ingredient) => {
     fetch(
