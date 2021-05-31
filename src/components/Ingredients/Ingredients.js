@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IngredientList } from './IngredientList';
 import { IngredientForm } from './IngredientForm';
 import Search from './Search';
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
+
+  //useEffect gets executed right after and for every component render cycle
+  useEffect(() => {
+    fetch(
+      'https://react-hooks-example-2526f-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json'
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
+        const loadedIngredients = [];
+        for (let key in responseData) {
+          loadedIngredients.push({
+            id: key,
+            title: responseData[key].title,
+            amount: responseData[key].amount,
+          });
+        }
+        setUserIngredients(loadedIngredients);
+      });
+  });
+
   const addIngredientHandler = (ingredient) => {
     fetch(
       'https://react-hooks-example-2526f-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json',
